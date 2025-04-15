@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background: linear-gradient(to right, #FFDDC1, #B0E0E6);
+            color: #FFFFFF;
+            margin: 0;
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        .intro-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .intro-text {
+            width: 55%;
+            text-align: left;
+        }
+
+        .intro-img {
+            width: 40%;
+            text-align: right;
+        }
+
+        .intro-img img {
+            width: 400px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .birthplace {
+            width: 55%;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .birthplace img {
+            width: 600px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .education {
+            width: 40%;
+            padding: 20px;
+            float: right;
+            text-align: left;
+        }
+
+        .skills, .cv {
+            padding: 20px;
+            clear: both;
+            text-align: left;
+            width: 55%;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 22px;
+        }
+
+        a {
+            color: #FFD700;
+            font-weight: bold;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 18px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: 0.3s;
+            font-size: 22px;
+        }
+
+        a:hover {
+            background: white;
+            color: #6a11cb;
+        }
+
+        h1 {
+            text-align: left;
+            margin-left: 20px;
+            font-size: 40px;
+        }
+
+        h2 {
+            text-align: left;
+            margin-left: 20px;
+            font-size: 30px;
+        }
+
+        .text-analysis {
+            padding: 20px;
+            clear: both;
+        }
+
+        textarea {
+            font-size: 18px;
+        }
+
+        #output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Introduction Section -->
+    <div class="intro-container">
+        <div class="intro-text">
+            <h1>About Me</h1>
+            <h2>Introduction</h2>
+            <p>Hello! My name is Ananya Agrawal. I was born in Jaipur but have lived all my life in Pune. 
+               I enjoy listening to music and reading books. I really like the waters and enjoy swimming 
+               and scuba diving a lot. It is my dream to scuba dive at least 20 meters deep! 
+               I also want to learn how to surf.</p>
+        </div>
+        <div class="intro-img">
+            <img src="IMG-20240616-WA0075.jpg" alt="Profile Picture">
+        </div>
+    </div>
+
+    <!-- Birthplace Section -->
+    <div class="birthplace">
+        <h2>My BirthPlace</h2>
+        <img src="aerial-view-of-Pune-city-Maharashtra-India-1244x700.jpg" alt="aerial-view-of-Pune-city-Maharashtra-India-1244x700.jpg">
+    </div>
+
+    <!-- Education Section -->
+    <div class="education">
+        <h2>Education</h2>
+        <p>I studied at Indra National School in Pune from Jr. KG to 12th grade. 
+           I don't really have any academic achievements to brag about.</p>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="skills">
+        <h2>Technical Skills</h2>
+        <ul>
+            <li><strong>Expert:</strong> Coding in C!!</li>
+            <li><strong>Intermediate:</strong> Building DSM circuits on Tinkercad and breadboards.</li>
+            <li><strong>Intermediate:</strong> Writing LLM prompts.</li>
+        </ul>
+    </div>
+
+    <!-- CV Section -->
+    <div class="cv">
+        <h2>CV</h2>
+        <a href="resume.pdf" download>Click here to download my CV</a>
+    </div>
+
+    <!-- Text Analysis Section -->
+    <div class="text-analysis">
+        <h2>Text Analysis</h2>
+        <textarea id="textInput" rows="15" cols="100" placeholder="Paste your 10,000+ word text here..." style="width: 100%; padding: 10px;"></textarea>
+        <br><br>
+        <button onclick="analyzeText()" style="padding: 10px 20px; font-size: 20px;">Analyze</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log(`${new Date().toISOString()} - view - page`);
+
+            // Click Logging
+            document.body.addEventListener("click", function(e) {
+                const target = e.target;
+
+                let type = "unknown";
+                if (target.tagName === "IMG") type = "image";
+                else if (target.tagName === "A" && target.href.endsWith(".pdf")) type = "PDF link (CV)";
+                else if (target.tagName === "A") type = "hyperlink";
+                else if (target.tagName === "BUTTON") type = "button";
+                else if (target.tagName === "SELECT") type = "drop-down";
+                else if (target.tagName === "P" || target.tagName === "SPAN" || target.tagName === "DIV") type = "text";
+                else if (target.tagName === "INPUT") type = `input (${target.type})`;
+                else if (target.tagName === "H1") type = "main heading (" + target.textContent.trim() + ")";
+                else if (target.tagName === "H2") type = "heading (" + target.textContent.trim() + ")";
+                else if (target.tagName === "LI") type = "list item (" + target.textContent.trim() + ")";
+                else if (target.tagName === "TEXTAREA") type = "textarea";
+
+                console.log(`${new Date().toISOString()} - click - ${type}`);
+            });
+
+            // View Observer (logs views every time they reappear)
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.5
+            };
+
+            const observerCallback = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        let type = "unknown";
+
+                        if (el.tagName === "IMG") type = "image";
+                        else if (el.tagName === "H1") type = "main heading (" + el.textContent.trim() + ")";
+                        else if (el.tagName === "H2") type = "heading (" + el.textContent.trim() + ")";
+                        else if (el.classList.contains("intro-text")) type = "intro text section";
+                        else if (el.classList.contains("birthplace")) type = "birthplace section";
+                        else if (el.classList.contains("education")) type = "education section";
+                        else if (el.classList.contains("skills")) type = "technical skills section";
+                        else if (el.classList.contains("cv")) type = "CV section";
+                        else if (el.classList.contains("text-analysis")) type = "text analysis section";
+
+                        console.log(`${new Date().toISOString()} - view - ${type}`);
+                        // Removed observer.unobserve(el) to allow repeated view logs
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const elementsToTrack = document.querySelectorAll(".intro-text, .birthplace, .education, .skills, .cv, .text-analysis, h1, h2, img");
+            elementsToTrack.forEach(el => observer.observe(el));
+        });
+
+        function analyzeText() {
+            const text = document.getElementById("textInput").value;
+
+            const letters = (text.match(/[a-zA-Z]/g) || []).length;
+            const words = (text.match(/\b\w+\b/g) || []).length;
+            const spaces = (text.match(/ /g) || []).length;
+            const newlines = (text.match(/\n/g) || []).length;
+            const specialSymbols = (text.match(/[^\w\s]/g) || []).length;
+
+            if (words < 10000) {
+                alert(`Warning: Your text must contain at least 10,000 words. You currently have ${words} words.`);
+                return;
+            }
+
+            const tokens = text.toLowerCase().match(/\b\w+\b/g) || [];
+
+            const pronouns = ['i','me','we','us','you','he','him','she','her','it','they','them','my','mine','our','your','his','her','its','their'];
+            const prepositions = ['in','on','at','since','for','ago','before','to','past','by','under','over','above','below','into','onto','off','of','from','with','about','against','between','among','during','without','within'];
+            const articles = ['a','an'];
+
+            const countWords = (list) => {
+                const map = {};
+                for (const word of list) {
+                    if (tokens.includes(word)) {
+                        map[word] = tokens.filter(t => t === word).length;
+                    }
+                }
+                return map;
+            }
+
+            const pronounCounts = countWords(pronouns);
+            const prepositionCounts = countWords(prepositions);
+            const articleCounts = countWords(articles);
+
+            let output = `
+=== Basic Counts ===
+Letters: ${letters}
+Words: ${words}
+Spaces: ${spaces}
+Newlines: ${newlines}
+Special Symbols: ${specialSymbols}
+
+=== Pronoun Counts ===
+${Object.entries(pronounCounts).map(([k, v]) => `${k}: ${v}`).join('\n')}
+
+=== Preposition Counts ===
+${Object.entries(prepositionCounts).map(([k, v]) => `${k}: ${v}`).join('\n')}
+
+=== Article Counts ===
+${Object.entries(articleCounts).map(([k, v]) => `${k}: ${v}`).join('\n')}
+`;
+
+            document.getElementById("output").textContent = output;
+        }
+    </script>
+</body>
+</html>
