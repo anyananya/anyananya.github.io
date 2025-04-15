@@ -61,6 +61,20 @@
             text-align: left;
         }
 
+        .achievements {
+            width: 55%;
+            padding: 20px;
+            clear: both;
+        }
+
+        .achievements p {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 22px;
+            color: #fff;
+        }
+
         .skills, .cv {
             padding: 20px;
             clear: both;
@@ -156,6 +170,14 @@
            I don't really have any academic achievements to brag about.</p>
     </div>
 
+    <!-- Achievements Section -->
+    <div class="achievements">
+        <h2>Achievements</h2>
+        <p>I secured an <strong>All India Rank of 1840</strong> in the JEE Mains examination! 
+        It was a challenging journey, and I’m proud of this achievement. It reflects my dedication 
+        and perseverance through long hours of preparation and problem-solving.</p>
+    </div>
+
     <!-- Technical Skills -->
     <div class="skills">
         <h2>Technical Skills</h2>
@@ -205,7 +227,7 @@
                 console.log(`${new Date().toISOString()} - click - ${type}`);
             });
 
-            // View Observer (logs views every time they reappear)
+            // View Observer
             const observerOptions = {
                 root: null,
                 rootMargin: "0px",
@@ -224,18 +246,18 @@
                         else if (el.classList.contains("intro-text")) type = "intro text section";
                         else if (el.classList.contains("birthplace")) type = "birthplace section";
                         else if (el.classList.contains("education")) type = "education section";
+                        else if (el.classList.contains("achievements")) type = "achievements section";
                         else if (el.classList.contains("skills")) type = "technical skills section";
                         else if (el.classList.contains("cv")) type = "CV section";
                         else if (el.classList.contains("text-analysis")) type = "text analysis section";
 
                         console.log(`${new Date().toISOString()} - view - ${type}`);
-                        // Removed observer.unobserve(el) to allow repeated view logs
                     }
                 });
             };
 
             const observer = new IntersectionObserver(observerCallback, observerOptions);
-            const elementsToTrack = document.querySelectorAll(".intro-text, .birthplace, .education, .skills, .cv, .text-analysis, h1, h2, img");
+            const elementsToTrack = document.querySelectorAll(".intro-text, .birthplace, .education, .achievements, .skills, .cv, .text-analysis, h1, h2, img");
             elementsToTrack.forEach(el => observer.observe(el));
         });
 
